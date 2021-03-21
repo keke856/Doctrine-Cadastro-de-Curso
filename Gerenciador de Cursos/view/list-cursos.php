@@ -2,7 +2,7 @@
 
   <?php include_once "fraguimento-front/inicio.php"?>
 
-  <a href="formulario-novo-curso.php" class="btn btn-primary mb-2">+ADD</a>  
+  <a href="/public/novo-curso" class="btn btn-primary mb-2">+ADD</a>  
    
         <ul class="list-group">
             <?php foreach ($cursos as $curso): ?>

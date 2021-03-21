@@ -2,20 +2,12 @@
 
 namespace Alura\Cursos\Controller;
 use Alura\Cursos\Infra\EntityManagerCreator;
+use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 
 require __DIR__."../../../vendor/autoload.php";
 
-class CadastroCurso implements InterfaceCotroladorRequisicao{
-
-private $entityManager;
-
-   public function __construct()
-   {
-       $entityManagerCreator = new EntityManagerCreator();
-       $this->entityManager = $entityManagerCreator->getEntityManager();
-   }
-
+class Formulario implements InterfaceCotroladorRequisicao{
 
 
     public function processarRequisicao():void
