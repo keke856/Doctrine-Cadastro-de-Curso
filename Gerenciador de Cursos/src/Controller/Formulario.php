@@ -7,13 +7,16 @@ use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 
 require __DIR__."../../../vendor/autoload.php";
 
-class Formulario implements InterfaceCotroladorRequisicao{
+class Formulario extends ControllerComHtml implements InterfaceCotroladorRequisicao{
 
 
     public function processarRequisicao():void
     {
-        $titulo = "Cadastro de Curso";
-        require __DIR__."/../../view/cadastro-curso.php";
+       // $titulo = "Cadastro de Curso";
+       // require __DIR__."/../../view/cadastro-curso.php";
+       echo $this->renderizaHtml("/cadastro-curso.php",[
+            'titulo'=>"Cadastro de Curso",
+        ]);
     }
 
 

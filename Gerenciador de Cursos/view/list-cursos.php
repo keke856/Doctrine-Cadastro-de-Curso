@@ -4,7 +4,8 @@
 
   <a href="/novo-curso" class="btn btn-primary mb-2">+ADD</a>  
    
-        <ul class="list-group">
+        <ul class="list-group"> 
+        
             <?php foreach ($cursos as $curso): ?>
                 <li class="list-group-item d-flex justify-content-between">
                     <?= $curso->getDescricao(); ?>

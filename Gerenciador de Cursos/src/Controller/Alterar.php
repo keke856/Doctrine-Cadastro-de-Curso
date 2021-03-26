@@ -6,11 +6,12 @@ namespace Alura\Cursos\Controller;
 use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Infra\EntityManagerCreator;
+use Alura\Cursos\Controller\ControllerComHtml;
 
 require_once __DIR__."/../../vendor/autoload.php";
 
 
-class Alterar implements InterfaceCotroladorRequisicao{
+class Alterar extends ControllerComHtml implements InterfaceCotroladorRequisicao{
 
     private $repository;
 
@@ -35,8 +36,15 @@ class Alterar implements InterfaceCotroladorRequisicao{
         }
 
        $cursos = $this->repository->find($id); 
-        $titulo ="Alteração de Cursos ".$cursos->getDescricao();
-        require_once __DIR__."/../../view/cadastro-curso.php";
+       
+    // require em arquivos html
+       echo  $this->renderizaHtml('/cadastro-curso.php',
+       [
+         'titulo'=>"Alteração de Cursos ".$cursos->getDescricao(),
+         'cursos'=>$cursos
+       ]);
+
+      
 
   
     }

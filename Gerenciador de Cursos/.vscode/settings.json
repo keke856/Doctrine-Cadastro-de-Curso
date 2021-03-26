@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:Gerenciador de Cursos}/db.sqlite",
+            "name": "db.sqlite"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:Gerenciador de Cursos}/db.sqlite",
+            "name": "db.sqlite"
+        }
+    ]
+}

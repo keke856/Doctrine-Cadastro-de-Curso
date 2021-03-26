@@ -7,7 +7,7 @@ use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 
 include_once __DIR__."../../../vendor/autoload.php";
 
-class ListarCursos implements InterfaceCotroladorRequisicao{
+class ListarCursos extends ControllerComHtml implements InterfaceCotroladorRequisicao{
 
 private $repositorioDeCursos;
 
@@ -20,8 +20,13 @@ private $repositorioDeCursos;
     public function processarRequisicao():void
     {
         $cursos = $this->repositorioDeCursos->findAll();
-        $titulo = "Lista de Cursos";
-            include_once __DIR__."/../../view/list-cursos.php";
+        //$titulo = "Lista de Cursos";
+        //include_once __DIR__."/../../view/list-cursos.php";
+
+      echo $this->renderizaHtml('list-cursos.php',[
+        'titulo'=>"Lista de Cursos",
+        'cursos'=>$cursos
+        ]);
  
 
 
@@ -41,4 +46,3 @@ private $repositorioDeCursos;
 
 
 
-?>

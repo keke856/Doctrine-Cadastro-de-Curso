@@ -10,7 +10,7 @@ if(!array_key_exists($path,$route)){
   echo "Erro 404";
 }
 
-$classeControladora = $route[$path];
+ $classeControladora = $route[$path];
   $controlador = new $classeControladora();
   $controlador->processarRequisicao();
 
