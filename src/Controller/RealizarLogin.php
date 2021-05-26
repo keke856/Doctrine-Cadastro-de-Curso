@@ -2,12 +2,19 @@
 namespace Alura\Cursos\Controller;
 
 use Alura\Cursos\Entity\Usuario;
+use Alura\Cursos\Controller\FlashMessage;
 use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 use Alura\Cursos\Infra\EntityManagerCreator;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__."/../../vendor/autoload.php";
 
-class RealizarLogin implements InterfaceCotroladorRequisicao{
+class RealizarLogin implements RequestHandlerInterface{
+
+ use FlashMessage;   
 
 private $entityManager;
 private $repository;
@@ -18,8 +25,9 @@ private $repository;
           $this->repository = $this->entityManager->getRepository(Usuario::class);        
     }
 
-    public function processarRequisicao(): void
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
+       
         $email = filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL);
         $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_STRING);
 
@@ -36,8 +44,7 @@ private $repository;
         $usuario = $this->repository->findOneBy(['email'=>$email]);
 
         if(is_null($usuario) || !$usuario->senhaEstaCorreta($senha)){
-            $_SESSION['tipo'] = "danger";
-            $_SESSION['mensagem'] = "Senha ou email inválidos";
+            $this->message( "danger", "Senha ou email inválidos" );
             header("Location: /login");
           
           exit();
@@ -45,9 +52,14 @@ private $repository;
 
         $_SESSION['logado'] = true;
 
-       header('Location: /listar-cursos');
+      // header('Location: /listar-cursos');
        
+     return (new Response(200,['Location'=>' /listar-cursos']));
+  
+  
     }
+    
+     
 
 
 

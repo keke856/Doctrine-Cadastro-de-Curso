@@ -4,20 +4,27 @@ namespace Alura\Cursos\Controller;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__."../../../vendor/autoload.php";
 
-class Formulario extends ControllerComHtml implements InterfaceCotroladorRequisicao{
+class Formulario extends ControllerComHtml implements RequestHandlerInterface{
 
 
-    public function processarRequisicao():void
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-       // $titulo = "Cadastro de Curso";
+          // $titulo = "Cadastro de Curso";
        // require __DIR__."/../../view/cadastro-curso.php";
-       echo $this->renderizaHtml("/cadastro-curso.php",[
-            'titulo'=>"Cadastro de Curso",
-        ]);
+       $html = $this->renderizaHtml("/cadastro-curso.php",[
+        'titulo'=>"Cadastro de Curso",
+    ]);
+           return (new Response(200,[],$html));
     }
+    
+     
 
 
 }

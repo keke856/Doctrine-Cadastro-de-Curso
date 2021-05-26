@@ -8,6 +8,7 @@ use Alura\Cursos\Controller\Excluir;
 use Alura\Cursos\Controller\Login;
 use Alura\Cursos\Controller\RealizarLogin;
 use Alura\Cursos\Controller\Logout;
+use Alura\Cursos\Controller\TestePsr;
 
 return [
      '/listar-cursos' => ListarCursos::class,
@@ -18,5 +19,6 @@ return [
      '/login'=> Login::class,
      '/realizar-login'=>RealizarLogin::class,
      '/logout' => Logout::class,
+     '/teste' =>TestePsr::class,
     
  ];

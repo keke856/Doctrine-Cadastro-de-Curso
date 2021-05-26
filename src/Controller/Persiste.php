@@ -2,13 +2,20 @@
 
 namespace Alura\Cursos\Controller;
 
+use  Alura\Cursos\Controller\FlashMessage;
 use Alura\Cursos\Controller\InterfaceCotroladorRequisicao;
 use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Infra\EntityManagerCreator;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 require_once __DIR__."/../../vendor/autoload.php";
 
-class Persiste implements InterfaceCotroladorRequisicao{
+class Persiste implements RequestHandlerInterface{
+
+use FlashMessage;    
 private $entityManager;
 private $repository;
 
@@ -18,13 +25,15 @@ private $repository;
         $this->repository = $this->entityManager->getRepository(Curso::class);
         
     }
-    public function processarRequisicao(): void
+  
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-       $descricao = filter_input(INPUT_POST,'descricao',FILTER_SANITIZE_STRING);
       
+        //$descricao = filter_input(INPUT_POST,'descricao',FILTER_SANITIZE_STRING);
+       $queryString = $request->getParsedBody();
+       $descricao = $queryString ['descricao'];
       
-
-        $cursos = new Curso();
+       $cursos = new Curso();
         $cursos->setDescricao($descricao);
 
          
@@ -35,14 +44,13 @@ private $repository;
           // $curso = $this->repository->find(Curso::class,$id);
          //  $curso->setDescricao($descricao);
            $cursos->setId($id);
-           $this->entityManager->merge($cursos);
-           $_SESSION['tipo'] = "success";
-           $_SESSION['mensagem'] = "Curso Alterado com Sucesso";
+           $this->entityManager->merge($cursos); 
+           $this->message( "success", "Curso Alterado com Sucesso" );
 
         }else{
             $this->entityManager->persist($cursos);
-            $_SESSION['tipo'] = "success";
-            $_SESSION['mensagem'] = "Curso Cadastrado com sucesso";
+            $this->message( "success", "Curso Cadastrado com sucesso" );
+          
         }
 
     
@@ -50,7 +58,11 @@ private $repository;
 
      
 
-        header('location:/listar-cursos',false,302);
-        
+      //  header('location:/listar-cursos',false,302);
+
+        return (new Response(200,['Location'=>'/listar-cursos']));
     }
+   
+        
+    
 }
